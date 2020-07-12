@@ -2,6 +2,13 @@
 
 1. 学习了产生式 BNF 语法。
 2. 学习了 JS 的基本类型。
+   - Number
+     理解了内部的标准 IEEE 754。
+   - String
+     - encode/decode
+     - Unicode
+       - UTF8/16 etc
+   - etc
 3. 学习了 JS 的对象。
 4. 为了完成 “找出 JavaScript 标准里面所有具有特殊行为的对象”作业， 去看了 ECMAScript Spec,然后发现其实是可以看懂的。 这可能就是溯源吧。。
 
