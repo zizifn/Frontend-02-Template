@@ -1,6 +1,8 @@
 const net = require('net');
 const os = require('os');
 const parser = require('./htmlParser')
+const images = require('images');
+const render = require('./render');
 
 class Request {
     constructor(options) {
@@ -253,7 +255,7 @@ void async function () {
         {
             method: 'POST',
             host: '127.0.0.1',
-            port: 3333,
+            port: 3000,
             path: '/',
             headers: {
                 "X-Foo2": "customed"
@@ -266,7 +268,12 @@ void async function () {
 
     let response = await request.send();
 
-    parser.parseHTML(response.body)
+    let dom = parser.parseHTML(response.body)
+    let viewport = images(1200, 1200);
 
-    // console.log("response is: ", response);
+    //  <div class="c1" />
+    render(viewport, dom);
+
+    viewport.save("viewport.jpg")
+    // console.log(JSON.stringify(dom, null, "     "));
 }();

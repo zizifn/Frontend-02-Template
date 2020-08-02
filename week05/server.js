@@ -13,28 +13,42 @@ http.createServer(
             console.log('request body:', body);
 
             response.writeHead(200, { 'content-type': 'text/html; charset=UTF-8' });
-            response.end(`<html>
+            response.end(`<html mtest=test>
+
             <head>
                 <title>Main</title>
                 <style>
+                #container{
+                    width: 500px;
+                    height:300px;
+                    display:flex;
+                    background-color:reb(255,255,255);
+                }
+                #container #myId{
+                    width: 200px;
+                    height:100px;
+                    background-color:rgb(255,0,0);
+                }
+                #container .c1{
+                    flex:1;
+                    background-color:rgb(0,255,0);
+                }
                 </style>
             </head>
+
             <body>
-                <div class="area">
-                    <div class="box rAF"></div>
+                <div id="container">
+                    <div id="myId" />
+                    <div class="c1" />
                 </div>
-                <br/>
+                <br />
                 <script>
-                    function setNewArea() {
-                        let el = document.createElement('div')
-                        el.setAttribute('class', 'area')
-                    }
-                    setNewArea()
                 </script>
             </body>
+
             </html>
             `);
         })
     }
-).listen(3333)
+).listen(3000)
 

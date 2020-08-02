@@ -3,9 +3,11 @@
     "version": "0.0.0",
     "private": true,
     "dependencies": {
+        "@antv/g6": "3.5.10",
+        "css": "^3.0.0",
+        "images": "^3.2.3",
         "react": "16.12.0",
-        "react-dom": "16.12.0",
-        "@antv/g6": "3.5.10"
+        "react-dom": "16.12.0"
     },
     "scripts": {
         "start": "react-scripts start",
