@@ -1,0 +1,50 @@
+<html>
+
+<head>
+    <style>
+        #before::before {
+            content: "♥";
+        }
+
+        #before::after {
+            content: "♥";
+        }
+
+        #first-letter::first-letter {
+            color: red;
+            float: right;
+        }
+
+        #first-line::first-line {
+            color: red;
+        }
+
+        #text-indent {
+            text-indent: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="before">
+        before
+    </div>
+    <div id="first-letter">
+        <div>first line linelinelinelieejjejej</div> content contentcontent content contentcontent
+        contentcontentcontent
+    </div>
+    <div id="first-line">
+        <div>first line linelinelinelieejjejej</div> content content
+        content content contentcontent
+        <br>
+        contentcontentcontent
+    </div>
+    <div id="text-indent">
+        <div>first line linelinelinelieejjejej</div> content content
+        content content <p>testtts</p>contentcontent
+        <br>
+        contentcontentcontent
+    </div>
+</body>
+
+</html>
