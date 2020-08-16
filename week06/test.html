@@ -22,11 +22,21 @@
         #text-indent {
             text-indent: 30px;
         }
+
+        .dd1#before.ddd {
+            background-color: aquamarine;
+        }
+
+        div#parentDiv>div #textindent.dd1 {
+            background-color: aquamarine;
+        }
+
+        // test stages
     </style>
 </head>
 
 <body>
-    <div id="before">
+    <div id="before" class="ddd dd1 dd2">
         before
     </div>
     <div id="first-letter">
@@ -39,12 +49,17 @@
         <br>
         contentcontentcontent
     </div>
-    <div id="text-indent">
-        <div>first line linelinelinelieejjejej</div> content content
-        content content <p>testtts</p>contentcontent
-        <br>
-        contentcontentcontent
-    </div>
+    <div id="parentDiv">
+        <div>
+            <p>
+            <div id="textindent" class="dd1 dd2">
+                <div>first line linelinelinelieejjejej</div> content content
+                content content <p>testtts</p>contentcontent
+                <br>
+                contentcontentcontent
+            </div>
+            <div></div>
+        </div>
 </body>
 
 </html>
