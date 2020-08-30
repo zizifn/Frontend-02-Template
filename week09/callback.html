@@ -1,0 +1,57 @@
+<html>
+
+<head>
+    <style>
+        div {
+            background-color: gray;
+            display: inline-block;
+            margin: 30px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+        }
+
+        .green.light {
+            background-color: green;
+        }
+
+        .yellow.light {
+            background-color: yellow;
+        }
+
+        .red.light {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="green"></div>
+    <div class="yellow"></div>
+    <div class="red"></div>
+
+    <script>
+        function light(color) {
+            let lights = document.getElementsByTagName("div")
+            for (const light of lights) {
+                light.classList.remove("light");
+            }
+            document.getElementsByClassName(color)[0].classList.add("light")
+        }
+
+        function go() {
+            light('green');
+            setTimeout(() => {
+                light('yellow');
+                setTimeout(() => {
+                    light('red');
+                    setTimeout(() => {
+                        go();
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>

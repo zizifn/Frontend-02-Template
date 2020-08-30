@@ -1,0 +1,38 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <script>
+        function change(color, time) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => resolve(color), time);
+            })
+        }
+
+        function green_yellow_red() {
+            change('green', 1000).then(
+                (color) => {
+                    document.getElementsByTagName('body')[0].style.backgroundColor = color;
+                    return change('yellow', 1000)
+                }
+            ).then(
+                (color) => {
+                    document.getElementsByTagName('body')[0].style.backgroundColor = color;
+                    return change('red', 1000)
+                }
+            ).then(
+                (color) => {
+                    document.getElementsByTagName('body')[0].style.backgroundColor = color;
+                    green_yellow_red()
+                }
+            )
+        }
+        green_yellow_red();
+
+    </script>
+</body>
+
+</html>

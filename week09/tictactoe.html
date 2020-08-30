@@ -1,0 +1,174 @@
+<html>
+
+<head>
+    <style>
+        .cell {
+            width: 100px;
+            height: 100px;
+            background-color: green;
+            display: inline-block;
+            border: solid 1px white;
+            vertical-align: middle;
+
+            line-height: 100px;
+            font-size: 50px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<bod>
+    <div id="board"></div>
+    <script>
+        let pattern = [
+            [0, 0, 0],
+            [0, 1, 0],
+            [0, 0, 0]
+        ];
+
+        function show() {
+            let board = document.getElementById("board");
+            board.innerHTML = "";
+
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    let cell = document.createElement("div");
+                    cell.classList.add("cell");
+                    cell.innerText = pattern[i][j] == 1 ? "⭕" :
+                        (pattern[i][j] === 2 ? "❌" : "");
+                    cell.addEventListener("click", () => move(j, i))
+                    board.appendChild(cell);
+                }
+                board.appendChild(document.createElement("br"));
+            }
+        }
+        let color = 2;
+        function move(x, y) {
+            pattern[y][x] = color;
+            if (check(pattern, color)) {
+                alert(color == 2 ? "❌ is winner" : "⭕ is winner");
+            }
+            color = 3 - color;
+            show()
+            computerMove()
+            // console.log(bestChoice(pattern, color))
+            // if (willWin(pattern, color)) {
+            //     console.log(color == 2 ? "❌ will winner" : "⭕ will winner");
+            // }
+        }
+
+        function computerMove() {
+            let choice = bestChoice(pattern, color);
+            if (choice.point) {
+                pattern[choice.point[0]][choice.point[1]] = color;
+            }
+            if (check(pattern, color)) {
+                alert(color == 2 ? "❌ is winner" : "⭕ is winner");
+            }
+            color = 3 - color;
+            show()
+        }
+
+        function bestChoice(pattern, color) {
+            let p;
+            if (p = willWin(pattern, color)) {
+                return {
+                    point: p,
+                    result: 1
+                }
+            }
+            let result = -2;
+            let point = null;
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if (pattern[i][j] === 0) {
+                        let temp = clone(pattern);
+                        temp[i][j] = color;
+                        let r = bestChoice(temp, 3 - color).result;
+                        if (-r > result) {
+                            result = -r;
+                            point = [i, j];
+                        }
+                    }
+                }
+            }
+
+            return {
+                point: point,
+                result: point ? result : 0
+            }
+        }
+
+        function clone(pattern) {
+            return JSON.parse(JSON.stringify(pattern));
+        }
+        function willWin(pattern, color) {
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if (pattern[i][j] === 0) {
+                        let temp = clone(pattern);
+                        temp[i][j] = color;
+                        if (check(temp, color)) {
+                            return [i, j];
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+        function check(pattern, color) {
+            // 横行
+            for (let i = 0; i < 3; i++) {
+                let win = true;
+                for (let j = 0; j < 3; j++) {
+                    if (pattern[i][j] !== color) {
+                        win = false;
+                    }
+                }
+                if (win) {
+                    return true;
+                }
+            }
+            // 竖行， 其实可以和横行合并，但是也就是o(2n^2)， 无伤大雅
+            for (let i = 0; i < 3; i++) {
+                let win = true;
+                for (let j = 0; j < 3; j++) {
+                    if (pattern[j][i] !== color) {
+                        win = false;
+                    }
+                }
+                if (win) {
+                    return true;
+                }
+            }
+
+            //
+            {
+                let win = true;
+                for (let i = 0; i < 3; i++) {
+                    if (pattern[i][i] !== color) {
+                        win = false;
+                    }
+                }
+                if (win) {
+                    return true;
+                }
+            }
+            {
+                let win = true;
+                for (let i = 0; i < 3; i++) {
+                    if (pattern[i][2 - i] !== color) {
+                        win = false;
+                    }
+                }
+                if (win) {
+                    return true;
+                }
+            }
+        }
+
+        show()
+    </script>
+</bod>
+
+</html>
