@@ -1,5 +1,3 @@
-// 广度优先算法
-
 <html>
 
 <head>
@@ -26,39 +24,6 @@
     <button onclick="localStorage['map'] = JSON.stringify(map)">Save</button>
 
     <script>
-        class BinaryHeap {
-            constructor(data, compare) {
-                this.data = data.slice();
-                this.compare = compare || ((a, b) => a - b)
-            }
-
-            get length() {
-                return this.data.length;
-            }
-
-            take() {
-                if (!this.data.length) {
-                    return;
-                }
-                let min = this.data[0];
-                let minIndex = 0;
-
-                for (let index = 0; index < this.data.length; index++) {
-                    if (this.compare(this.data[index], min) < 0) {
-                        min = this.data[index];
-                        minIndex = index;
-                    }
-                }
-
-                this.data[minIndex] = this.data[this.data.length - 1];
-                this.data.pop();
-                return min;
-            }
-
-            insert(v) {
-                this.data.push(v);
-            }
-        }
         let map = localStorage["map"] ? JSON.parse(localStorage["map"]) : Array(10000).fill(0);
         map = map.map(value => {
             if (value === 0 || value === 1) {
@@ -114,11 +79,8 @@
             )
         };
         async function path(map, start, end) {
-            var queue = new Sorted([start], (a, b) => distance(a) - distance(b));
+            var queue = [start];
 
-            function distance(point) {
-                return (point[0] - end[0]) ** 2 + (point[1] - end[1]) ** 2;
-            }
             async function insert(x, y) {
                 if (x < 0 || x >= 100 || y < 0 || y >= 100) {
                     return;
@@ -129,11 +91,11 @@
                 await sleep(30);
                 container.children[y * 100 + x].style.backgroundColor = "red";
                 map[y * 100 + x] = 2;
-                queue.give([x, y]);
+                queue.push([x, y]);
             }
 
             while (queue.length) {
-                let [x, y] = queue.take();
+                let [x, y] = queue.shift();
                 // console.log(x, y);
                 if (x == end[0] && y == end[1]) {
                     return true;

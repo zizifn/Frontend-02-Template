@@ -26,7 +26,7 @@
     <button onclick="localStorage['map'] = JSON.stringify(map)">Save</button>
 
     <script>
-        class BinaryHeap {
+        class Sorted {
             constructor(data, compare) {
                 this.data = data.slice();
                 this.compare = compare || ((a, b) => a - b)
@@ -55,7 +55,7 @@
                 return min;
             }
 
-            insert(v) {
+            give(v) {
                 this.data.push(v);
             }
         }
