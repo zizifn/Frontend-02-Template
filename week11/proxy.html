@@ -1,0 +1,118 @@
+<input id="r" type="range" min="0" max="255">
+<input id="g" type="range" min="0" max="255">
+<input id="b" type="range" min="0" max="255">
+<div id="color" style="width: 100px; height: 100px;">
+</div>
+<script>
+    let callbacks = new Map();
+    let reactivities = new Map();
+
+    let usedReactives = [];
+    let object = {
+        a: { b: 3 },
+        b: 2,
+        r: 1,
+        g: 2,
+        b: 3
+    };
+
+    let po = reactive(object);
+
+    effect(
+        () => {
+            // console.log(po.a);
+            // console.log(po.a.b);
+            // 单向绑定，从model到Ui
+            document.getElementById("r").value = po.r;
+            console.log("in po.r call back");
+        }
+    );
+    effect(
+        () => {
+            // 单向绑定，从model到Ui
+            document.getElementById("g").value = po.g;
+            console.log("in po.g call back");
+        }
+    );
+    effect(
+        () => {
+            // 单向绑定，从model到Ui
+            document.getElementById("b").value = po.b;
+            console.log("in po.b call back");
+        }
+    );
+
+    effect(
+        () => {
+            document.getElementById("color").style.backgroundColor = `rgb(${po.r}, ${po.g}, ${po.b})`;
+        }
+    )
+
+    // 从UI 到 model
+    document.getElementById("r").addEventListener("input", (event) => {
+        po.r = event.target.value;
+        console.log("in r addEventListener input");
+    })
+    document.getElementById("g").addEventListener("input", (event) => {
+        po.g = event.target.value;
+        console.log("in g addEventListener input");
+    })
+    document.getElementById("b").addEventListener("input", (event) => {
+        po.b = event.target.value;
+        console.log("in b addEventListener input");
+    })
+
+
+    function effect(callback) {
+        // callbacks.push(callback);
+        usedReactives = [];
+        // 首先执行一遍binding的callback，
+        // 然后就可以知道到底哪些prop需要使用这些callback
+        callback();
+        for (const reactivity of usedReactives) {
+            // 是不是能找到obj
+            if (!callbacks.has(reactivity[0])) {
+                callbacks.set(reactivity[0], new Map())
+            }
+            // 是不是obj的属性已经在
+            if (!callbacks.get(reactivity[0]).has(reactivity[1])) {
+                callbacks.get(reactivity[0]).set(reactivity[1], []);
+            }
+
+            callbacks.get(reactivity[0]).get(reactivity[1]).push(callback);
+        }
+
+        console.log(usedReactives);
+    }
+
+    function reactive(object) {
+        if (reactivities.has(object)) {
+            return reactivities.get(object);
+        }
+        let proxy = new Proxy(object, {
+            set(obj, prop, val) {
+                object[prop] = val;
+                console.log(obj, prop, val);
+                //
+                if (callbacks.get(object)?.get(prop)?.length > 0) {
+                    for (callback of callbacks.get(object).get(prop)) {
+                        callback();
+                    }
+                }
+                return object[prop];
+            },
+            get(object, prop) {
+                console.log(object, prop);
+                usedReactives.push([object, prop]);
+                if (typeof object[prop] === 'object') {
+                    return reactive(object[prop]);
+                }
+                return object[prop];
+            }
+        });
+
+        reactivities.set(object, proxy);
+
+        return proxy;
+    }
+</script>
