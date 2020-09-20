@@ -293,7 +293,9 @@ var Carousal = /*#__PURE__*/function (_Component) {
           div.style.backgroundImage = "url(".concat(url, ")"); // div.style.display = "none";
 
           this.root.appendChild(div);
-        }
+        } // this.root.addEventListener("mousedown", event => {
+        // })
+
       } catch (err) {
         _iterator.e(err);
       } finally {
@@ -307,8 +309,8 @@ var Carousal = /*#__PURE__*/function (_Component) {
         var nextIndex = (currentIndex + 1) % children.length;
         var current = children[currentIndex];
         var next = children[nextIndex];
-        next.style.transition = "none";
-        current.style.transform = "translateX(".concat(100 - nextIndex * 100, "%)");
+        next.style.transition = "none"; // next.style.transform = `translateX(${100 - nextIndex * 100}%)`;
+
         setTimeout(function () {
           next.style.transition = "";
           current.style.transform = "translateX(".concat(-100 - currentIndex * 100, "%)");

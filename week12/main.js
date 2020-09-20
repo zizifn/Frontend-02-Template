@@ -21,6 +21,10 @@ class Carousal extends Component {
             this.root.appendChild(div);
         }
 
+        // this.root.addEventListener("mousedown", event => {
+
+        // })
+
         let currentIndex = 0;
         setInterval(() => {
             /**@type {HTMLElement[]} */
@@ -31,18 +35,16 @@ class Carousal extends Component {
             let next = children[nextIndex];
 
             next.style.transition = "none";
-            current.style.transform = `translateX(${100 - nextIndex * 100}%)`;
+            next.style.transform = `translateX(${100 - nextIndex * 100}%)`;
 
             setTimeout(
                 () => {
                     next.style.transition = "";
                     current.style.transform = `translateX(${-100 - currentIndex * 100}%)`;
-                    next.style.transform = `translateX(${-nextIndex * 100}%)`;
+                    next.style.transform = `translateX(${- nextIndex * 100}%)`;
 
                     currentIndex = nextIndex;
-                },
-                16
-            )
+                }, 16)
         }, 3000);
         return this.root;
     }
