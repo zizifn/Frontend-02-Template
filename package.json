@@ -16,6 +16,7 @@
         "eject": "react-scripts eject"
     },
     "devDependencies": {
-        "react-scripts": "latest"
+        "react-scripts": "latest",
+        "webpack-dev-server": "^3.11.0"
     }
 }

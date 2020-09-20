@@ -1,0 +1,47 @@
+<div id="div1">
+    <p id="1">p1</p>
+    <p id="2">p2</p>
+    <p id="3">p3</p>
+    <p id="4">p4</p>
+    <p id="5">p5</p>
+</div>
+
+<div id="div2">123<span style="background-color: pink;">456789</span>0123456789</div>
+
+<script>
+
+    function reverse() {
+        let children = document.getElementById("div1").children;
+        Array.from(children).reverse().forEach(
+            child => {
+                document.getElementById("div1").appendChild(child)
+            }
+        );
+    }
+    function reverse2() {
+        let children = document.getElementById("div1").children;
+        for (let i = children.length - 1; i >= 0; i--) {
+            document.getElementById("div1").appendChild(children[i])
+        }
+    }
+    function reverseRange() {
+        let div1 = document.getElementById("div1");
+
+        let range = document.createRange();
+        // range.selectNodeContents(div1);
+        range.setStart(div1, 0);
+        range.setEnd(div1, 5);
+        let fragment = range.extractContents();
+
+        Array.from(fragment.childNodes).reverse().forEach(
+            child => {
+                fragment.appendChild(child)
+            }
+        )
+
+        div1.appendChild(fragment);
+
+    }
+
+
+</script>
