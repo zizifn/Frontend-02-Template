@@ -1,0 +1,97 @@
+<html>
+
+<head>
+    <script>
+        // debugger;
+    </script>
+    <style>
+        .test-flex {
+            display: flex;
+        }
+
+        .test-float {
+            float: left;
+            margin: 10px;
+        }
+
+        .test-normal {
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .test-clear {
+            clear: right;
+        }
+    </style>
+</head>
+
+
+
+<body>
+    <div>
+        float:<div style="width: 100px; height: 100px; background-color: blue;" class="test-float">1</div>
+        文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字
+        文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字
+        文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字
+        文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字
+        float:<div style="width: 100px; height: 100px; background-color: blue;" class="test-float">2</div>
+        文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字
+        文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字
+        文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字
+        文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字
+        float:<div style="width: 100px; height: 100px; background-color: blue;" class="test-float test-clear">3</div>
+        文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字
+        文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字
+        文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字
+        文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字
+
+        float:<div style="width: 100px; height: 100px; background-color: blue;" class="test-float">4</div>
+        文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字
+        文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字
+        文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字
+        文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字 文字
+    </div>
+
+    <!-- 正常流，布局 -->
+    <div style="background-color: aliceblue;">
+        <div style="width: 100px; height: 100px; background-color: red;" class="test-normal">1</div>
+        <div style="width: 100px; height: 100px; background-color: red;" class="test-normal">2</div>
+        <div style="width: 100px; height: 100px; background-color: red;" class="test-normal">3</div>
+        <div style="width: 100px; height: 100px; background-color: red;" class="test-normal">4</div>
+        <div style="width: 100px; height: 100px; background-color: red;" class="test-normal">5</div>
+        <div style="width: 100px; height: 100px; background-color: red;" class="test-normal">6</div>
+        <div style="width: 100px; height: 100px; background-color: red;" class="test-normal">7</div>
+    </div>
+    <div>middle</div>
+    <div style="background-color: azure; margin-top: 20px; display: inline-block;">
+        <!-- float 布局 -->
+        <div style="width: 100px; height: 100px; background-color: blue;" class="test-float">1</div>
+        <div style="width: 100px; height: 100px; background-color: blue;" class="test-float">2</div>
+        <div style="width: 100px; height: 100px; background-color: blue;" class="test-float">3</div>
+        <div style="width: 100px; height: 100px; background-color: blue;" class="test-float">4</div>
+        <!-- 换行 -->
+        <!-- <div style="clear: left; width:  100px; height: 100px; background-color: blue;" class="test-float">4</div> -->
+
+        <div style="width: 100px; height: 100px; background-color: blue;" class="test-float">5</div>
+        <div style="width: 100px; height: 100px; background-color: blue;" class="test-float">6</div>
+        <div style="width: 100px; height: 100px; background-color: blue;" class="test-float">7</div>
+    </div>
+    <div style="margin: 50px;">out</div>
+    <!-- margin 折叠 -->
+    <div style="background-color: azure; margin-top: 20px;">
+        <!-- float 布局 -->
+        <div style="width: 100px; height: 100px; background-color: lightblue; margin: 20px;">1</div>
+        <div style="width: 100px; height: 100px; background-color: lightblue; margin: 20px;">2</div>
+        <div style="width: 100px; height: 100px; background-color: lightblue; margin: 20px;">3</div>
+        <div style="width: 100px; height: 100px; background-color: lightblue; margin: 20px;">4</div>
+    </div>
+
+    <div>
+        test <div style="width: 100px; height: 100px; background-color: lightblue; margin: 20px;">
+            <div>1</div>
+            <div>2</div>
+        </div>
+    </div>
+</body>
+
+</html>
