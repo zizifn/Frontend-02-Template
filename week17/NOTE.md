@@ -5,4 +5,4 @@
    - mocha for ut framework
    - nyc for coverage
 
-2. 把 UT 和 coverage 加入到工具类生产项目中。
+2. 把 UT 和 coverage 加入到脚手架项目中。
