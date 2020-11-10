@@ -1,6 +1,16 @@
 let http = require('http')
 let fs = require('fs');
-const { post } = require('../server/routes');
+let archiver = require('archiver')
+
+const archive = archiver('zip', {
+    zlib: { level: 9 }
+});
+
+archive.directory('dist/', false);
+// archive.pipe(fs.createWriteStream("build.zip"));
+
+
+
 
 
 let request = http.request(
@@ -9,16 +19,40 @@ let request = http.request(
         port: 8082,
         method: 'post',
         headers: {
-            'Content-Type': 'application/octet-stream'
+            'Content-Type': 'application/octet-stream',
+            // 'Content-Length': 1235
+            'Transfer-Encoding': 'chunked'
         }
     }, res => {
-        console.log(res);
+        console.log(res.statusCode);
+        res.on("data", (chunk) => {
+            console.log(chunk.toString());
+        })
+
+        res.on("error", (chunk) => {
+            console.log(chunk.toString());
+        })
+
     }
 );
 
-let file = fs.createReadStream("./index.html");
+// let file = fs.createReadStream("build.zip");
+archive.pipe(request);
+request.on('error', (e) => {
+    console.error(`problem with request: ${e.message}`);
+});
 
-file.pipe(request);
+archive.on('end', () => {
+    request.end();
+})
+archive.finalize();
+    // fs.stat("build.zip", (error, stat) => {
+
+    // });
+
+
+
+
 // let file = fs.createReadStream("./index.html");
 // // 如果文件过大，event 'data'， 会调用多次
 // // let file = fs.createReadStream(".pdf");
