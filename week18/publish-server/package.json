@@ -4,8 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "publish": "scp -r ./public zizi.press:/root/cicd/server/public",
+    "start": "node ./server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "unzip": "^0.1.11"
+  }
 }
